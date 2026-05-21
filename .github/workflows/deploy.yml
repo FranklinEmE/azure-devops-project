@@ -5,33 +5,71 @@ on:
     branches:
       - main
 
+env:
+  ACR_LOGIN_SERVER: ${{ secrets.ACR_LOGIN_SERVER }}
+  IMAGE_NAME: azure-devops-app
+
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
 
     steps:
+    # =========================
+    # 1. Checkout code
+    # =========================
     - name: Checkout code
       uses: actions/checkout@v4
 
+    # =========================
+    # 2. Azure login
+    # =========================
     - name: Login to Azure
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
+    # =========================
+    # 3. Login to ACR
+    # =========================
     - name: Login to ACR
-      run: echo ${{ secrets.ACR_PASSWORD }} | docker login ${{ secrets.ACR_LOGIN_SERVER }} -u ${{ secrets.ACR_USERNAME }} --password-stdin
+      run: |
+        echo ${{ secrets.ACR_PASSWORD }} | docker login $ACR_LOGIN_SERVER \
+        -u ${{ secrets.ACR_USERNAME }} --password-stdin
 
+    # =========================
+    # 4. Build Docker image (VERSIONED)
+    # =========================
     - name: Build Docker image
-      run: docker build -t ${{ secrets.ACR_LOGIN_SERVER }}/azure-devops-app:latest .
+      run: |
+        docker build -t $ACR_LOGIN_SERVER/$IMAGE_NAME:${{ github.sha }} .
 
+    # =========================
+    # 5. Push Docker image
+    # =========================
     - name: Push Docker image
-      run: docker push ${{ secrets.ACR_LOGIN_SERVER }}/azure-devops-app:latest
+      run: |
+        docker push $ACR_LOGIN_SERVER/$IMAGE_NAME:${{ github.sha }}
 
+    # =========================
+    # 6. Set AKS context
+    # =========================
     - name: Set AKS context
       uses: azure/aks-set-context@v3
       with:
         resource-group: devops-rg
         cluster-name: devops-aks
 
-    - name: Deploy to AKS
-      run: kubectl apply -f deployment.yaml && kubectl apply -f service.yaml
+    # =========================
+    # 7. Update deployment image
+    # =========================
+    - name: Update Kubernetes deployment
+      run: |
+        kubectl set image deployment/azure-devops-app \
+        azure-devops-app=$ACR_LOGIN_SERVER/$IMAGE_NAME:${{ github.sha }}
+
+    # =========================
+    # 8. Wait for rollout
+    # =========================
+    - name: Verify rollout
+      run: |
+        kubectl rollout status deployment/azure-devops-app
