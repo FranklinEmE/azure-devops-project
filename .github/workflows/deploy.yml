@@ -1,0 +1,37 @@
+name: CI-CD to AKS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Login to ACR
+      run: echo ${{ secrets.ACR_PASSWORD }} | docker login ${{ secrets.ACR_LOGIN_SERVER }} -u ${{ secrets.ACR_USERNAME }} --password-stdin
+
+    - name: Build Docker image
+      run: docker build -t ${{ secrets.ACR_LOGIN_SERVER }}/azure-devops-app:latest .
+
+    - name: Push Docker image
+      run: docker push ${{ secrets.ACR_LOGIN_SERVER }}/azure-devops-app:latest
+
+    - name: Set AKS context
+      uses: azure/aks-set-context@v3
+      with:
+        resource-group: devops-rg
+        cluster-name: devops-aks
+
+    - name: Deploy to AKS
+      run: kubectl apply -f deployment.yaml && kubectl apply -f service.yaml
