@@ -1,9 +1,3 @@
-# azure-devops-project
-
-Azure DevOps learning project with Docker, Kubernetes and Azure CLI
-
-
-
 \# 🚀 Azure DevOps End-to-End Project (Flask + Docker + Azure + Kubernetes)
 
 
@@ -26,17 +20,19 @@ This project demonstrates a complete DevOps workflow from application developmen
 
 It covers:
 
-\- Application development (Flask)
 
-\- Containerization with Docker
+
+\- Flask application development
+
+\- Containerization using Docker
 
 \- Image storage in Azure Container Registry (ACR)
 
-\- Kubernetes deployment (AKS concept)
+\- Kubernetes deployment on AKS
 
-\- Monitoring \& alerting system
+\- CI/CD pipeline using GitHub Actions
 
-\- CI/CD workflow simulation
+\- Monitoring \& alerting with Prometheus and Grafana
 
 
 
@@ -48,7 +44,7 @@ It covers:
 
 
 
-Flask App → Docker Image → Azure Container Registry → Kubernetes Deployment → Monitoring \& Alerts
+GitHub → GitHub Actions CI/CD → Docker Build → Azure Container Registry → AKS Deployment → Prometheus \& Grafana Monitoring
 
 
 
@@ -56,7 +52,7 @@ Flask App → Docker Image → Azure Container Registry → Kubernetes Deploymen
 
 
 
-\# 📸 Project Screenshots \& Explanation
+\# 📸 Project Screenshots \& Evidence
 
 
 
@@ -66,13 +62,15 @@ Flask App → Docker Image → Azure Container Registry → Kubernetes Deploymen
 
 \## 🔹 1. Azure Resource Group
 
-!\[Resource Group](screenshots/09-resource-group.png)
+
+
+!\[Resource Group](./screenshots/09-resource-group.png)
 
 
 
 \*\*Description:\*\*  
 
-This is the Azure Resource Group that contains all cloud resources used in the project. It acts as a logical container for managing infrastructure.
+Azure Resource Group containing all infrastructure resources used in the project including AKS, ACR, networking, and monitoring tools.
 
 
 
@@ -82,13 +80,15 @@ This is the Azure Resource Group that contains all cloud resources used in the p
 
 \## 🔹 2. Azure Container Registry (ACR)
 
-!\[ACR](screenshots/01-acr-overview.png)
+
+
+!\[ACR Overview](./screenshots/01-acr-overview.png)
 
 
 
 \*\*Description:\*\*  
 
-Private Docker registry used to store and manage container images securely in Azure.
+Azure Container Registry used to securely store Docker images for deployment.
 
 
 
@@ -98,13 +98,15 @@ Private Docker registry used to store and manage container images securely in Az
 
 \## 🔹 3. Docker Image Push to ACR
 
-!\[Docker Push](screenshots/03-docker-push-acr.png)
+
+
+!\[Docker Push](./screenshots/03-docker-push-acr.png)
 
 
 
 \*\*Description:\*\*  
 
-The Docker image was successfully built and pushed to Azure Container Registry.
+Docker image successfully built and pushed to Azure Container Registry.
 
 
 
@@ -114,13 +116,15 @@ The Docker image was successfully built and pushed to Azure Container Registry.
 
 \## 🔹 4. CI/CD Pipeline Trigger
 
-!\[CI/CD](screenshots/04-cicd-trigger.png)
+
+
+!\[CI/CD Pipeline](./screenshots/04-github-actions-ci-cd-trigger.png)
 
 
 
 \*\*Description:\*\*  
 
-A Git commit triggered the CI/CD pipeline demonstrating automated delivery workflow.
+GitHub commit triggered automated CI/CD pipeline using GitHub Actions.
 
 
 
@@ -128,15 +132,17 @@ A Git commit triggered the CI/CD pipeline demonstrating automated delivery workf
 
 
 
-\## 🔹 5. Kubernetes Dashboard
+\## 🔹 5. Kubernetes Pod Running
 
-!\[Kubernetes](screenshots/02-k8s-dashboard.png)
+
+
+!\[Running Pod](./screenshots/11-k8s-running-pod.png)
 
 
 
 \*\*Description:\*\*  
 
-Shows Kubernetes cluster status including running workloads and system health.
+Flask application successfully deployed and running inside Kubernetes (AKS).
 
 
 
@@ -144,15 +150,17 @@ Shows Kubernetes cluster status including running workloads and system health.
 
 
 
-\## 🔹 6. Running Container Image
+\## 🔹 6. Kubernetes Cluster Dashboard
 
-!\[Container Running](screenshots/10-acr-running-image.png)
+
+
+!\[Kubernetes Dashboard](./screenshots/02-k8s-dashboard.png)
 
 
 
 \*\*Description:\*\*  
 
-The containerized application is successfully running from the Azure registry image.
+Overview of Kubernetes cluster workloads and health status.
 
 
 
@@ -160,15 +168,17 @@ The containerized application is successfully running from the Azure registry im
 
 
 
-\## 🔹 7. Running Kubernetes Pod
+\## 🔹 7. Grafana Monitoring Access
 
-!\[Pod Running](screenshots/11-k8s-running-pod.png)
+
+
+!\[Grafana](./screenshots/05-grafana-access.png)
 
 
 
 \*\*Description:\*\*  
 
-The application is deployed successfully as a running Kubernetes pod.
+Grafana dashboard used for system monitoring and visualization of cluster metrics.
 
 
 
@@ -176,15 +186,17 @@ The application is deployed successfully as a running Kubernetes pod.
 
 
 
-\## 🔹 8. Grafana Monitoring Access
+\## 🔹 8. CPU Usage Alert
 
-!\[Grafana](screenshots/05-grafana-access.png)
+
+
+!\[CPU Alert](./screenshots/06-cpu-alert.png)
 
 
 
 \*\*Description:\*\*  
 
-Monitoring dashboard used to observe system metrics and cluster performance.
+Automated alert triggered when CPU usage exceeds defined threshold.
 
 
 
@@ -192,15 +204,17 @@ Monitoring dashboard used to observe system metrics and cluster performance.
 
 
 
-\## 🔹 9. CPU Usage Alert
+\## 🔹 9. Memory Usage Alert
 
-!\[CPU Alert](screenshots/06-cpu-alert.png)
+
+
+!\[Memory Alert](./screenshots/07-memory-alert.png)
 
 
 
 \*\*Description:\*\*  
 
-Automated alert triggered when CPU usage exceeds threshold limits.
+Memory monitoring system detecting high resource usage in the cluster.
 
 
 
@@ -208,31 +222,17 @@ Automated alert triggered when CPU usage exceeds threshold limits.
 
 
 
-\## 🔹 10. Memory Usage Alert
-
-!\[Memory Alert](screenshots/07-memory-alert.png)
+\## 🔹 10. Pod Health Alert
 
 
 
-\*\*Description:\*\*  
-
-Memory monitoring system detects and alerts high resource consumption.
-
-
-
-\---
-
-
-
-\## 🔹 11. Pod Health Alert
-
-!\[Pod Health](screenshots/08-pod-health-alert.png)
+!\[Pod Health](./screenshots/08-pod-health-alert.png)
 
 
 
 \*\*Description:\*\*  
 
-Kubernetes health monitoring ensures pod reliability and uptime.
+Kubernetes health monitoring ensuring application availability and stability.
 
 
 
@@ -274,7 +274,7 @@ azure-devops-app/
 
 ├── 03-docker-push-acr.png
 
-├── 04-cicd-trigger.png
+├── 04-github-actions-ci-cd-trigger.png
 
 ├── 05-grafana-access.png
 
@@ -285,8 +285,6 @@ azure-devops-app/
 ├── 08-pod-health-alert.png
 
 ├── 09-resource-group.png
-
-├── 10-acr-running-image.png
 
 ├── 11-k8s-running-pod.png
 
@@ -308,13 +306,13 @@ azure-devops-app/
 
 \- Azure Container Registry (ACR)
 
-\- Kubernetes deployment concepts
+\- Kubernetes deployment on AKS
 
-\- CI/CD workflow simulation
+\- CI/CD automation using GitHub Actions
 
-\- Monitoring \& alerting system
+\- Monitoring using Prometheus \& Grafana
 
-\- Cloud infrastructure on Microsoft Azure
+\- Real-world DevOps workflow
 
 
 
@@ -326,17 +324,17 @@ azure-devops-app/
 
 
 
-\- Containerization with Docker
+\- Docker image building and containerization
 
-\- Azure cloud infrastructure
+\- Azure cloud infrastructure (ACR, AKS)
 
-\- Kubernetes basics
+\- Kubernetes deployment and scaling
 
-\- CI/CD pipelines
+\- CI/CD pipeline automation
 
-\- Monitoring and observability
+\- Monitoring and observability (Prometheus \& Grafana)
 
-\- End-to-end DevOps workflow
+\- End-to-end DevOps workflow implementation
 
 
 
@@ -348,15 +346,15 @@ azure-devops-app/
 
 
 
-\- Full CI/CD with GitHub Actions
-
-\- Production AKS cluster deployment
+\- Full production-grade AKS setup
 
 \- Auto-scaling and load balancing
 
-\- Prometheus + Grafana integration
+\- Terraform full Infrastructure as Code (IaC)
 
 \- Multi-environment deployment (dev/staging/prod)
+
+\- Advanced alerting and logging (Loki / ELK stack)
 
 
 
@@ -382,5 +380,5 @@ GitHub: https://github.com/FranklinEmE
 
 
 
-This project demonstrates a real-world DevOps pipeline from code to cloud deployment using industry-standard tools.
+This project demonstrates a complete DevOps pipeline from code to cloud deployment using industry-standard tools and Azure cloud services.
 
